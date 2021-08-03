@@ -21,7 +21,7 @@ public class ConsoleApplication {
     public static int mapSizeMax = 5;
     public static int mapCountLevel = 0;
 
-    public static char player = '@';
+    public static char player = '&';
     public static int playerHealth = 100;
     public static int playerPowerPoint = 15;
     public static int playerPosX;
@@ -85,8 +85,8 @@ public class ConsoleApplication {
         map = new char[mapHeight][mapWidth];
         invisibleMap = new char[mapHeight][mapWidth];
 
-        for (int y = 0; y < mapHeight; y++) {
-            for (int x = 0; x < mapWidth; x++) {
+        for (int x = 0; x < mapWidth; x++) {
+            for (int y = 0; y < mapHeight; y++) {
                 map[y][x] = emptyCell;
             }
         }
