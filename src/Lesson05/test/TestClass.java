@@ -1,6 +1,6 @@
-package Lesson05.online.test;
+package Lesson05.test;
 
-import Lesson05.online.Player;
+import Lesson05.Player;
 
 /**
  * Created by Aleksandr Gladkov [Anticisco]
