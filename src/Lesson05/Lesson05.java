@@ -1,4 +1,4 @@
-package Lesson05.online;
+package Lesson05;
 
 import java.sql.SQLOutput;
 
