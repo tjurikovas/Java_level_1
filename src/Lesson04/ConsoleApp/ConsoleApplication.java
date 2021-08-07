@@ -1,4 +1,4 @@
-package Lesson04;
+package ConsoleApp;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -21,11 +21,7 @@ public class ConsoleApplication {
     public static int mapSizeMax = 5;
     public static int mapCountLevel = 0;
 
-<<<<<<< HEAD
     public static char player = '@';
-=======
-    public static char player = '&';
->>>>>>> origin/master
     public static int playerHealth = 100;
     public static int playerPowerPoint = 15;
     public static int playerPosX;
@@ -89,13 +85,8 @@ public class ConsoleApplication {
         map = new char[mapHeight][mapWidth];
         invisibleMap = new char[mapHeight][mapWidth];
 
-<<<<<<< HEAD
         for (int y = 0; y < mapHeight; y++) {
             for (int x = 0; x < mapWidth; x++) {
-=======
-        for (int x = 0; x < mapWidth; x++) {
-            for (int y = 0; y < mapHeight; y++) {
->>>>>>> origin/master
                 map[y][x] = emptyCell;
             }
         }

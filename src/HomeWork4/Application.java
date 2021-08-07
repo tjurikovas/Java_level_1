@@ -1,15 +1,9 @@
-package Lesson04;
+package HomeWork4;
 
 import java.util.Random;
 import java.util.Scanner;
 
-/**
- * Created by Aleksandr Gladkov [Anticisco]
- * Date: 24.07.2021
- */
-
-public class ConsoleApplication {
-
+public class Application {
     public static Random random = new Random();
     public static Scanner scanner = new Scanner(System.in);
 
@@ -21,38 +15,33 @@ public class ConsoleApplication {
     public static int mapSizeMax = 5;
     public static int mapCountLevel = 0;
 
-<<<<<<< HEAD
-    public static char player = '@';
-=======
     public static char player = '&';
->>>>>>> origin/master
     public static int playerHealth = 100;
     public static int playerPowerPoint = 15;
     public static int playerPosX;
     public static int playerPosY;
     public static int playerCountStep = 0;
-    public static boolean setRandomStartPosition = false;
+    public static boolean setRandomStartPosition = true;
 
     public static final int moveUp = 8;
     public static final int moveDown = 2;
     public static final int moveLeft = 4;
     public static final int moveRight = 6;
-    public static final int moveLeftUpRightDownDiag = 7;
-    public static final int moveRightDownLeftUpDiag = 3;
-    public static final int moveLeftDownRightUpDiag = 1;
-    public static final int moveRightUpLeftDownDiag = 9;
+    public static final int moveLeftUpDiagonal = 7;
+    public static final int moveLeftDownDiagonal = 1;
+    public static final int moveRightUpDiagonal = 9;
+    public static final int moveRightDownDiagonal = 3;
 
-    public static char enemy = 'E';
+    public static char enemy = 'G';
     public static int enemyHealth;
     public static int enemyPower;
     public static int enemyValueMin = 10;
-    public static int enemyValueMax = 30;
+    public static int enemyValueMax = 25;
 
-    public static char readyCell = '*';
-    public static char emptyCell = '_';
+    public static char readyCell = '_';
+    public static char emptyCell = '*';
 
-    public static void main(String[] args) {
-
+    public static void main (String[] args) {
         while (isPlayerAlive()) {
             ++mapCountLevel;
             System.out.println("===== Game Start! Current LEVEL " + mapCountLevel);
@@ -89,18 +78,12 @@ public class ConsoleApplication {
         map = new char[mapHeight][mapWidth];
         invisibleMap = new char[mapHeight][mapWidth];
 
-<<<<<<< HEAD
-        for (int y = 0; y < mapHeight; y++) {
-            for (int x = 0; x < mapWidth; x++) {
-=======
-        for (int x = 0; x < mapWidth; x++) {
-            for (int y = 0; y < mapHeight; y++) {
->>>>>>> origin/master
-                map[y][x] = emptyCell;
+        for(int x = 0; x < mapWidth; x++) {
+            for(int y = 0; y < mapHeight; y++) {
+                map[x][y] = readyCell;
             }
         }
-
-        System.out.println("Create map > size " + mapWidth + "x" + mapHeight);
+        System.out.println("Create map size: " + mapWidth + "X" + mapHeight);
     }
 
     public static void printMap() {
@@ -114,7 +97,7 @@ public class ConsoleApplication {
         System.out.println("=======================");
     }
 
-    public static void createPlayer(boolean randomPositionPlayer) {
+    public static void createPlayer (boolean randomPositionPlayer) {
         if (randomPositionPlayer) {
             playerPosX = randomRange(0, mapWidth - 1);
             playerPosY = randomRange(0, mapHeight - 1);
@@ -157,10 +140,10 @@ public class ConsoleApplication {
                     " DOWN=" + moveDown +
                     " LEFT=" + moveLeft +
                     " RIGHT=" + moveRight +
-                    " LDRU=" + moveLeftDownRightUpDiag +
-                    " RULD=" + moveRightUpLeftDownDiag +
-                    " LURD=" + moveLeftUpRightDownDiag +
-                    " RDLU=" + moveRightDownLeftUpDiag + ") >>> "
+                    " LeUp=" + moveLeftUpDiagonal +
+                    " LeDow=" + moveLeftDownDiagonal +
+                    " RiUp=" + moveRightUpDiagonal +
+                    " RiDow=" + moveRightDownDiagonal + ") >>> "
             );
             playerMove = scanner.nextInt();
 
@@ -177,21 +160,21 @@ public class ConsoleApplication {
                 case moveRight:
                     playerPosX += 1;
                     break;
-                case moveLeftDownRightUpDiag:
+                case moveLeftUpDiagonal:
+                    playerPosX -= 1;
+                    playerPosY -= 1;
+                    break;
+                case moveLeftDownDiagonal:
                     playerPosX -= 1;
                     playerPosY += 1;
                     break;
-                case moveRightUpLeftDownDiag:
+                case moveRightUpDiagonal:
                     playerPosX += 1;
                     playerPosY -= 1;
                     break;
-                case moveRightDownLeftUpDiag:
+                case moveRightDownDiagonal:
                     playerPosX += 1;
                     playerPosY += 1;
-                    break;
-                case moveLeftUpRightDownDiag:
-                    playerPosX -= 1;
-                    playerPosY -= 1;
                     break;
             }
         } while (!isValidNextMove(currentY, currentX, playerPosY, playerPosX));
@@ -218,15 +201,14 @@ public class ConsoleApplication {
             System.out.println("Alert! Enemy give damage " + enemyPower + ". Player health now is " + playerHealth);
         }
 
-        invisibleMap[playerPosY][playerPosX] = readyCell;
-        map[currentY][currentX] = readyCell;
+        invisibleMap[playerPosY][playerPosX] = emptyCell;
+        map[currentY][currentX] = emptyCell;
         map[playerPosY][playerPosX] = player;
     }
 
-    public static int randomRange(int min, int max) {
-        int diff = max - min;
-        int value = random.nextInt(diff + 1);
-        return min + value;
+
+    public static boolean isPlayerAlive() {
+        return playerHealth > 0;
     }
 
     public static boolean isFullMap() {
@@ -238,7 +220,14 @@ public class ConsoleApplication {
         return true;
     }
 
-    public static boolean isPlayerAlive() {
-        return playerHealth > 0;
+    public static int randomRange(int min, int max) {
+        int diff = max - min;
+        int value = random.nextInt(diff + 1);
+        return min + value;
     }
 }
+
+
+/** Я поэтапно воспроизводил код, смотря видео с записью вебенара. Не нашел причину, почему переодически вылазит
+ * сообщение об ошибке
+ */
